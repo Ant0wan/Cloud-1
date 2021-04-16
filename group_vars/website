@@ -1,2 +1,5 @@
 ansible_user: 'root'
 docker_version: '5:19.03.15~3-0~ubuntu-focal'
+user: 'website'
+group: 'docker'
+home: '/srv/website/'

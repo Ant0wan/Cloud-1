@@ -1,0 +1,73 @@
+---
+- name: Kernel
+  tags:
+    - kernel
+    - config
+  gather_facts: yes
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: kernel
+
+- name: Docker
+  tags:
+    - docker-ce
+    - docker
+    - config
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: docker
+
+- name: Docker Compose
+  tags:
+    - docker-compose
+    - docker
+    - config
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: compose
+
+- name: Web User
+  tags: user
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: user
+
+- name: Nginx
+  tags:
+    - server
+    - nginx
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: nginx
+      vars:
+        ports: [80]
+
+
+
+      #- name: WordPress
+      #  tags:
+      #    - wordpress
+      #    - website
+      #  gather_facts: no
+      #  hosts: all
+      #  become: yes
+      #  become_method: sudo
+      #  roles:
+      #    - role: wordpress
+
+
+          #- name: Firewall config 

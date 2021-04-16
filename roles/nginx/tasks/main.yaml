@@ -1,0 +1,8 @@
+---
+- name: Generate nginx configuration file
+  template:
+    src: nginx.conf.j2
+    dest: "{{ home }}/nginx.conf"
+    mode: '0644'
+    owner: '{{ user }}'
+    group: '{{ group }}'

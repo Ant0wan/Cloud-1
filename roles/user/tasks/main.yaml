@@ -1,0 +1,9 @@
+---
+- name: Add the user 'web' with a specific uid and a primary group of 'docker'
+  tags: adduser
+  ansible.builtin.user:
+    name: '{{ user }}'
+    comment: Website user
+    group: '{{ group }}'
+    shell: /bin/bash
+    home: '{{ home }}'
