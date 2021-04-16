@@ -1,0 +1,22 @@
+---
+- name: Kernel Configuration
+  tags:
+    - kernel
+    - config
+  gather_facts: yes
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: kernel
+
+- name: Docker Configuration
+  tags:
+    - docker
+    - config
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: docker

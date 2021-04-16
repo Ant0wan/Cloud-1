@@ -1,0 +1,80 @@
+---
+- name: Check GPG keys
+  command: "apt-key list | grep 'Docker Release (CE deb)'"
+  register: docker_gpg
+
+- name: Add Docker GPG key
+  shell: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
+  args:
+    warn: no
+  when: docker_gpg.rc != 0
+
+- name: Check repository
+  shell: "grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep docker"
+  register: repo_docker
+
+- name: Add docker repository
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  when: repo_docker.rc != 0
+
+- name: Update package list
+  package_facts:
+    manager: auto
+
+- name: Get lastest container runtimes
+  apt:
+    name: containerd.io
+    state: latest
+    update_cache: yes
+
+- name: Check Docker-CE versions
+  set_fact:
+    ce_version: "{{ ansible_facts.packages['docker-ce'] | default(none)  |  map(attribute='version')  |  list }}"
+    cli_version: "{{ ansible_facts.packages['docker-ce-cli'] | default(none)  |  map(attribute='version')  |  list }}"
+
+- name: Uninstall non-validated docker-ce
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+    state: absent
+    update_cache: yes
+  when: docker_version not in ce_version or docker_version not in cli_version
+
+- name: Get last validated docker-ce and cli {{ docker_version }}
+  apt:
+    name:
+      - "docker-ce={{ docker_version }}"
+      - "docker-ce-cli={{ docker_version }}"
+    state: present
+    update_cache: yes
+  when: docker_version not in ce_version or docker_version not in cli_version
+
+- name: Check Docker is Using Systemd
+  shell: "docker info | grep -i cgroup"
+  register: cgroups_docker
+
+- name: Copy Docker Deamon Configuration File
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0600'
+  when: "cgroups_docker.rc != 0"
+
+- name: Systemd Reread Configuration
+  systemd:
+    daemon_reload: yes
+  when: "cgroups_docker.rc != 0"
+
+- name: Systemd Enable and Start Docker
+  systemd:
+    name: docker
+    enabled: yes
+    masked: no
+    state: restarted
+  when: "cgroups_docker.rc != 0"
+
+- name: Check Docker is Using Systemd
+  shell: "docker info | grep -i cgroup"
