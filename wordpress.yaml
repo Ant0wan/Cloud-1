@@ -1,5 +1,5 @@
 ---
-- name: Kernel Configuration
+- name: Kernel
   tags:
     - kernel
     - config
@@ -10,7 +10,7 @@
   roles:
     - role: kernel
 
-- name: Docker Configuration
+- name: Docker
   tags:
     - docker
     - config
@@ -20,3 +20,14 @@
   become_method: sudo
   roles:
     - role: docker
+
+- name: WordPress
+  tags:
+    - wordpress
+    - website
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: wordpress

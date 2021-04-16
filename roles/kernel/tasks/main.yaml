@@ -11,3 +11,7 @@
 - name: Load Kernel Parameters
   shell: sysctl --system
   when: "'swapoff -a' not in crontab.content|b64decode"
+
+- name: Set timezone to Europe/Paris
+  timezone:
+    name: Europe/Paris
