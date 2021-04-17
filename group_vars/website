@@ -5,11 +5,14 @@ user: 'website'
 group: 'docker'
 home: '/srv/website/'
 website_network: 'website-network'
+volumes_dir: '{{ home }}volumes/'
+networks_dir: '{{ home }}networks/'
 
 # nginx
 nginx_dir: '{{ home }}nginx/'
-nginx_conf_dir: '{{ home }}conf/'
+nginx_conf_dir: '{{ nginx_dir }}conf/'
 nginx_version: '1.15.12-alpine'
+ports: [80]
 
 # Database
 db_dir: '{{ home }}db/'

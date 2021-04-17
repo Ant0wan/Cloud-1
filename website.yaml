@@ -43,6 +43,24 @@
   roles:
     - role: user
 
+- name: Volumes
+  tags: volumes
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: volumes
+
+- name: Networks
+  tags: networks
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: networks
+
 - name: Nginx
   tags:
     - server
@@ -53,8 +71,6 @@
   become_method: sudo
   roles:
     - role: nginx
-      vars:
-        ports: [80]
 
 - name: Database
   tags:
@@ -78,6 +94,3 @@
   become_method: sudo
   roles:
     - role: wordpress
-
-
-          #- name: Firewall config 

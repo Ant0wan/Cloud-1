@@ -9,4 +9,4 @@ services:
     volumes:
       - certbot-etc:/etc/letsencrypt
       - wordpress:/var/www/html
-    ommand: certonly --webroot --webroot-path=/var/www/html --email {{ admin }}@{{ domain_name }} --agree-tos --no-eff-email --staging -d {{ domain_name }} -d www.{{ domain_name }}
+    command: certonly --webroot --webroot-path=/var/www/html --email {{ admin }}@{{ domain_name }} --agree-tos --no-eff-email --staging -d {{ domain_name }} -d www.{{ domain_name }}

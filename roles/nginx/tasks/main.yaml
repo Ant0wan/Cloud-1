@@ -11,10 +11,10 @@
 - name: Generate nginx configuration file
   template:
     src: nginx.conf.j2
-    dest: "{{ nginx_conf_dir }}/nginx.conf"
-    mode: '0644'
+    dest: "{{ nginx_conf_dir }}nginx.conf"
     owner: '{{ user }}'
     group: '{{ group }}'
+    mode: '0644'
 
 - name: Generate Docker-compose manifest
   template:
