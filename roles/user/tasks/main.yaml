@@ -1,5 +1,5 @@
 ---
-- name: Add the user 'web' with a specific uid and a primary group of 'docker'
+- name: Add the user '{{ user }}' with a primary group of '{{ group }}'
   tags: adduser
   ansible.builtin.user:
     name: '{{ user }}'

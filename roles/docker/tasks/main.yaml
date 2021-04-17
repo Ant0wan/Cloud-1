@@ -50,7 +50,7 @@
     update_cache: yes
   when: docker_version not in ce_version or docker_version not in cli_version
 
-- name: Check Docker is Using Systemd
+- name: Register variable of process containers
   shell: "docker info | grep -i cgroup"
   register: cgroups_docker
 

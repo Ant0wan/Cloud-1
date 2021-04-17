@@ -1,5 +1,21 @@
+# Commons
 ansible_user: 'root'
 docker_version: '5:19.03.15~3-0~ubuntu-focal'
 user: 'website'
 group: 'docker'
 home: '/srv/website/'
+website_network: 'website-network'
+
+# nginx
+nginx_dir: '{{ home }}nginx/'
+nginx_conf_dir: '{{ home }}conf/'
+nginx_version: '1.15.12-alpine'
+
+# Database
+db_dir: '{{ home }}db/'
+db_volume: '{{ db_dir }}data/'
+mysql_version: '8.0'
+
+# Wordpress
+wp_dir: '{{ home }}wordpress/'
+wp_version: '5.1.1-fpm-alpine'

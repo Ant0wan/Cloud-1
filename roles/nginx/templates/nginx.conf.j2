@@ -8,11 +8,11 @@ server {
 
         index index.php index.html index.htm;
 
-        root {{ home }};
+        root /var/www/html;
 
         location ~ /.well-known/acme-challenge {
                 allow all;
-                root {{ home }};
+                root /var/www/html;
         }
 
         location / {

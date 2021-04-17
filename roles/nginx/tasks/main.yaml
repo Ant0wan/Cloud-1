@@ -1,8 +1,25 @@
 ---
+- name: Create nginx directory
+  file:
+    path: '{{ nginx_conf_dir }}'
+    state: directory
+    recurse: yes
+    mode: '0755'
+    owner: '{{ user }}'
+    group: '{{ group }}'
+
 - name: Generate nginx configuration file
   template:
     src: nginx.conf.j2
-    dest: "{{ home }}/nginx.conf"
+    dest: "{{ nginx_conf_dir }}/nginx.conf"
     mode: '0644'
     owner: '{{ user }}'
     group: '{{ group }}'
+
+- name: Generate Docker-compose manifest
+  template:
+    src: "docker-compose.yaml.j2"
+    dest: "{{ nginx_dir }}/docker-compose.yaml"
+    owner: '{{ user }}'
+    group: '{{ group }}'
+    mode: '0644'

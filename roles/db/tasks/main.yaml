@@ -1,0 +1,17 @@
+---
+- name: Create db volume directory
+  file:
+    path: '{{ db_volume }}'
+    state: directory
+    recurse: yes
+    mode: '0755'
+    owner: '{{ user }}'
+    group: '{{ group }}'
+
+- name: Generate Docker-compose manifest
+  template:
+    src: "docker-compose.yaml.j2"
+    dest: "{{ db_dir }}/docker-compose.yaml"
+    owner: '{{ user }}'
+    group: '{{ group }}'
+    mode: '0644'

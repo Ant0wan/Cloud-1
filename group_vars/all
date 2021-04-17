@@ -1,3 +1,4 @@
 ansible_connection: 'ssh'
 ansible_python_interpreter: '/usr/bin/python3'
 domain_name: 'abarthel.dev'
+admin: abarthel
