@@ -34,7 +34,7 @@
   roles:
     - role: compose
 
-- name: Web User
+- name: Add User
   tags: user
   gather_facts: no
   hosts: all
@@ -48,7 +48,7 @@
   gather_facts: no
   hosts: all
   become: yes
-  become_method: sudo
+  become_user: "{{ user }}"
   roles:
     - role: volumes
 
@@ -57,20 +57,9 @@
   gather_facts: no
   hosts: all
   become: yes
-  become_method: sudo
+  become_user: "{{ user }}"
   roles:
     - role: networks
-
-- name: Nginx
-  tags:
-    - server
-    - nginx
-  gather_facts: no
-  hosts: all
-  become: yes
-  become_method: sudo
-  roles:
-    - role: nginx
 
 - name: Database
   tags:
@@ -80,7 +69,7 @@
   gather_facts: no
   hosts: all
   become: yes
-  become_method: sudo
+  become_user: "{{ user }}"
   roles:
     - role: db
 
@@ -91,6 +80,18 @@
   gather_facts: no
   hosts: all
   become: yes
-  become_method: sudo
+  become_user: "{{ user }}"
   roles:
     - role: wordpress
+
+- name: Nginx
+  tags:
+    - server
+    - nginx
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_user: "{{ user }}"
+  roles:
+    - role: nginx
+

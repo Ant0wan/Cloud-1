@@ -15,3 +15,8 @@
     owner: '{{ user }}'
     group: '{{ group }}'
     mode: '0644'
+
+- name: Create certs
+  command: "docker-compose up"
+  args:
+    chdir: '{{ cert_dir }}'

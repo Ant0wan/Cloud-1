@@ -15,3 +15,8 @@
     owner: '{{ user }}'
     group: '{{ group }}'
     mode: '0644'
+
+- name: Deploy Wordpress container
+  command: "docker-compose up"
+  args:
+    chdir: '{{ wp_dir }}'

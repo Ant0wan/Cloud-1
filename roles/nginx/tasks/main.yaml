@@ -23,3 +23,8 @@
     owner: '{{ user }}'
     group: '{{ group }}'
     mode: '0644'
+
+- name: Deploy Nginx container
+  command: "docker-compose up"
+  args:
+    chdir: '{{ nginx_dir }}'

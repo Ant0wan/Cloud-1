@@ -1,0 +1,18 @@
+---
+- name: Create volumes directory
+  file:
+    path: '{{ volumes_dir }}'
+    state: directory
+    recurse: yes
+    mode: '0755'
+    owner: '{{ user }}'
+    group: '{{ group }}'
+
+- name: Create dbdata volumes
+  command: "docker volume create --name=dbdata"
+
+- name: Create wordpress volumes
+  command: "docker volume create --name=wordpress"
+
+- name: Create certbot-etc volumes
+  command: "docker volume create --name=certbot-etc"

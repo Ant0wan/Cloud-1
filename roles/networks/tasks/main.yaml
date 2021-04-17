@@ -1,17 +1,3 @@
 ---
-- name: Create volumes directory
-  file:
-    path: '{{ volumes_dir }}'
-    state: directory
-    recurse: yes
-    mode: '0755'
-    owner: '{{ user }}'
-    group: '{{ group }}'
-
-- name: Generate Docker-compose manifest
-  template:
-    src: "docker-compose.yaml.j2"
-    dest: "{{ volumes_dir }}/docker-compose.yaml"
-    owner: '{{ user }}'
-    group: '{{ group }}'
-    mode: '0644'
+- name: Define networks
+  command: "docker network create --driver=bridge {{ website_network }}"
