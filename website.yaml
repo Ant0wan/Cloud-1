@@ -1,96 +1,29 @@
 ---
-- name: Kernel
-  tags: kernel
-  gather_facts: yes
-  hosts: all
-  become: yes
-  become_method: sudo
-  roles:
-    - role: kernel
-
-- name: Docker
-  tags: docker
-  gather_facts: no
-  hosts: all
-  become: yes
-  become_method: sudo
-  roles:
-    - role: docker
-
-      #- name: Docker Compose
-      #  tags:
-      #    - docker-compose
-      #    - docker
-      #    - config
-      #  gather_facts: no
-      #  hosts: all
-      #  become: yes
-      #  become_method: sudo
-      #  roles:
-      #    - role: compose
-
-- name: Add User
-  tags: user
-  gather_facts: no
-  hosts: all
-  become: yes
-  become_method: sudo
-  roles:
-    - role: user
-
-- name: Volumes
-  tags: volumes
-  gather_facts: no
-  hosts: all
-  become: yes
-  become_user: "{{ user }}"
-  roles:
-    - role: volumes
-
-- name: Networks
-  tags:
-    - networks
-    - db
-    - wordpress
-    - nginx
-  gather_facts: no
-  hosts: all
-  become: yes
-  become_user: "{{ user }}"
-  roles:
-    - role: networks
-
 - name: Database
-  tags:
-    - db
-    - database
-    - mysql
+  tags: db
   gather_facts: no
   hosts: all
   become: yes
+  become_method: su
   become_user: "{{ user }}"
   roles:
     - role: db
 
-- name: WordPress
-  tags:
-    - wordpress
-    - website
-  gather_facts: no
-  hosts: all
-  become: yes
-  become_user: "{{ user }}"
-  roles:
-    - role: wordpress
-
-- name: Nginx
-  tags:
-    - server
-    - nginx
-  gather_facts: no
-  hosts: all
-  become: yes
-  become_user: "{{ user }}"
-  roles:
-    - role: nginx
-
+      #- name: WordPress
+      #  tags: wordpress
+      #  gather_facts: no
+      #  hosts: all
+      #  become: yes
+      #  become_user: "{{ user }}"
+      #  roles:
+      #    - role: wordpress
+      #
+      #- name: Nginx
+      #  tags: nginx
+      #  gather_facts: no
+      #  hosts: all
+      #  become: yes
+      #  become_user: "{{ user }}"
+      #  roles:
+      #    - role: nginx
+      #

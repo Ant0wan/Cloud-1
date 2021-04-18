@@ -1,3 +1,0 @@
----
-- name: Install Python3
-  command: "apt install python3 python3-pip"

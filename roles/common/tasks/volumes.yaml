@@ -5,9 +5,9 @@
     path: '{{ db_volume }}'
     state: directory
     recurse: yes
-    mode: '0755'
-    owner: '{{ user }}'
-    group: '{{ group }}'
+      #    mode: '0755'
+      #    owner: '{{ user }}'
+      #    group: '{{ group }}'
 
 - name: Create dbdata volume
   tags: db
