@@ -27,3 +27,6 @@ mysql_db: "{{ lookup('env','MYSQL_DATABASE') }}"
 # Wordpress
 wp_dir: '{{ home }}wordpress/'
 wp_version: '5.1.1-fpm-alpine'
+
+# Certbot-etc
+certbot_dir: '{{ home }}certbot/'

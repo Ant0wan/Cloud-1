@@ -22,17 +22,17 @@
   roles:
     - role: docker
 
-- name: Docker Compose
-  tags:
-    - docker-compose
-    - docker
-    - config
-  gather_facts: no
-  hosts: all
-  become: yes
-  become_method: sudo
-  roles:
-    - role: compose
+      #- name: Docker Compose
+      #  tags:
+      #    - docker-compose
+      #    - docker
+      #    - config
+      #  gather_facts: no
+      #  hosts: all
+      #  become: yes
+      #  become_method: sudo
+      #  roles:
+      #    - role: compose
 
 - name: Add User
   tags: user

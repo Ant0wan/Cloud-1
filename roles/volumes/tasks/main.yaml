@@ -1,18 +1,60 @@
 ---
-- name: Create volumes directory
+- name: Create db volume directory
+  tags: db
   file:
-    path: '{{ volumes_dir }}'
+    path: '{{ db_volume }}'
     state: directory
     recurse: yes
     mode: '0755'
     owner: '{{ user }}'
     group: '{{ group }}'
 
-- name: Create dbdata volumes
-  command: "docker volume create --name=dbdata"
+- name: Create dbdata volume
+  tags: db
+  community.docker.docker_volume:
+    name: dbdata
+    recreate: options-changed
+    driver_options:
+      type: none
+      o: bind
+      device: '{{ db_volume }}'
 
-- name: Create wordpress volumes
-  command: "docker volume create --name=wordpress"
+- name: Create wordpress volume directory
+  tags: wordpress
+  file:
+    path: '{{ wp_dir }}'
+    state: directory
+    recurse: yes
+    mode: '0755'
+    owner: '{{ user }}'
+    group: '{{ group }}'
 
-- name: Create certbot-etc volumes
-  command: "docker volume create --name=certbot-etc"
+- name: Create wordpress volume
+  tags: wordpress
+  community.docker.docker_volume:
+    name: wordpress
+    recreate: options-changed
+    driver_options:
+      type: none
+      o: bind
+      device: '{{ wp_dir }}'
+
+- name: Create certbot-etc volume directory
+  tags: certbot
+  file:
+    path: '{{ certbot_dir }}'
+    state: directory
+    recurse: yes
+    mode: '0755'
+    owner: '{{ user }}'
+    group: '{{ group }}'
+
+- name: Create certbot-etc volume
+  tags: certbot
+  community.docker.docker_volume:
+    name: certbot-etc
+    recreate: options-changed
+    driver_options:
+      type: none
+      o: bind
+      device: '{{ certbot_dir }}'
