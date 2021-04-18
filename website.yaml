@@ -1,8 +1,6 @@
 ---
 - name: Kernel
-  tags:
-    - kernel
-    - config
+  tags: kernel
   gather_facts: yes
   hosts: all
   become: yes
@@ -11,10 +9,7 @@
     - role: kernel
 
 - name: Docker
-  tags:
-    - docker-ce
-    - docker
-    - config
+  tags: docker
   gather_facts: no
   hosts: all
   become: yes
@@ -53,7 +48,11 @@
     - role: volumes
 
 - name: Networks
-  tags: networks
+  tags:
+    - networks
+    - db
+    - wordpress
+    - nginx
   gather_facts: no
   hosts: all
   become: yes

@@ -1,0 +1,5 @@
+---
+dependencies:
+  - role: kernel
+  - role: docker
+  - role: user
