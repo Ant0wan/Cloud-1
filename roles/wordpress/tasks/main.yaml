@@ -1,22 +1,23 @@
 ---
-- name: Create wordpress directory
-  file:
-    path: '{{ wp_dir }}'
-    state: directory
-    recurse: yes
-    mode: '0755'
-    owner: '{{ user }}'
-    group: '{{ group }}'
-
-- name: Generate Docker-compose manifest
-  template:
-    src: "docker-compose.yaml.j2"
-    dest: "{{ wp_dir }}/docker-compose.yaml"
-    owner: '{{ user }}'
-    group: '{{ group }}'
-    mode: '0644'
-
-- name: Deploy Wordpress container
-  command: "docker-compose up"
-  args:
-    chdir: '{{ wp_dir }}'
+- name: Create and start Wordpress services
+  community.docker.docker_container:
+    container_default_behavior: no_defaults
+    name: wordpress
+    image: wordpress:{{ wp_version }}
+    volumes:
+      - wordpress:/var/www/html
+    state: started
+    recreate: no
+    restart: no
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ website_network }}"
+    network_mode: "{{ website_network }}"
+    env:
+      WORDPRESS_DB_HOST: 'db:3306'
+      WORDPRESS_DB_USER: '{{ mysql_user }}'
+      WORDPRESS_DB_PASSWORD: '{{ mysql_password }}'
+      WORDPRESS_DB_NAME: 'wordpress'
+      MYSQL_ROOT_PASSWORD: '{{ mysql_root_password }}'
+      MYSQL_USER: '{{ mysql_user }}'
+      MYSQL_PASSWORD: '{{ mysql_password }}'

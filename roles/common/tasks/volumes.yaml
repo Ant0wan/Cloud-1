@@ -5,9 +5,6 @@
     path: '{{ db_volume }}'
     state: directory
     recurse: yes
-      #    mode: '0755'
-      #    owner: '{{ user }}'
-      #    group: '{{ group }}'
 
 - name: Create dbdata volume
   tags: db
@@ -25,9 +22,6 @@
     path: '{{ wp_dir }}'
     state: directory
     recurse: yes
-    mode: '0755'
-    owner: '{{ user }}'
-    group: '{{ group }}'
 
 - name: Create wordpress volume
   tags: wordpress
@@ -45,9 +39,6 @@
     path: '{{ certbot_dir }}'
     state: directory
     recurse: yes
-    mode: '0755'
-    owner: '{{ user }}'
-    group: '{{ group }}'
 
 - name: Create certbot-etc volume
   tags: certbot

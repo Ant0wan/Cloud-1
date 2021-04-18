@@ -1,4 +1,13 @@
 ---
+- name: Commons
+  tags: commons
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: common
+
 - name: Database
   tags: db
   gather_facts: no
@@ -9,15 +18,16 @@
   roles:
     - role: db
 
-      #- name: WordPress
-      #  tags: wordpress
-      #  gather_facts: no
-      #  hosts: all
-      #  become: yes
-      #  become_user: "{{ user }}"
-      #  roles:
-      #    - role: wordpress
-      #
+- name: WordPress
+  tags: wordpress
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: su
+  become_user: "{{ user }}"
+  roles:
+    - role: wordpress
+
       #- name: Nginx
       #  tags: nginx
       #  gather_facts: no

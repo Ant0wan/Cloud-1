@@ -1,21 +1,13 @@
 ---
-- name: Check GPG keys
-  command: "apt-key list | grep 'Docker Release (CE deb)'"
-  register: docker_gpg
-
 - name: Add Docker GPG key
-  shell: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
-  args:
-    warn: no
-  when: docker_gpg.rc != 0
-
-- name: Check repository
-  shell: "grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep docker"
-  register: repo_docker
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
 - name: Add docker repository
-  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  when: repo_docker.rc != 0
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    state: present
 
 - name: Update package list
   package_facts:
@@ -51,7 +43,7 @@
   when: docker_version not in ce_version or docker_version not in cli_version
 
 - name: Register variable of process containers
-  shell: "docker info | grep -i cgroup"
+  community.docker.docker_host_info:
   register: cgroups_docker
 
 - name: Copy Docker Deamon Configuration File
@@ -61,12 +53,13 @@
     owner: root
     group: root
     mode: '0600'
-  when: "cgroups_docker.rc != 0"
+    force: yes
+  when: "cgroups_docker.host_info.CgroupDriver != 'systemd'"
 
 - name: Systemd Reread Configuration
   systemd:
     daemon_reload: yes
-  when: "cgroups_docker.rc != 0"
+  when: "cgroups_docker.host_info.CgroupDriver != 'systemd'"
 
 - name: Systemd Enable and Start Docker
   systemd:
@@ -74,7 +67,4 @@
     enabled: yes
     masked: no
     state: restarted
-  when: "cgroups_docker.rc != 0"
-
-- name: Check Docker is Using Systemd
-  shell: "docker info | grep -i cgroup"
+  when: "cgroups_docker.host_info.CgroupDriver != 'systemd'"
