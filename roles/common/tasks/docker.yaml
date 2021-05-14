@@ -6,7 +6,7 @@
 
 - name: Add docker repository
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    repo: "deb [arch=arm64] https://download.docker.com/linux/ubuntu focal stable"
     state: present
 
 - name: Update package list
@@ -15,32 +15,37 @@
 
 - name: Get lastest container runtimes
   apt:
-    name: containerd.io
+    name: 'containerd'
     state: latest
     update_cache: yes
 
 - name: Check Docker-CE versions
   set_fact:
     ce_version: "{{ ansible_facts.packages['docker-ce'] | default(none)  |  map(attribute='version')  |  list }}"
-    cli_version: "{{ ansible_facts.packages['docker-ce-cli'] | default(none)  |  map(attribute='version')  |  list }}"
 
 - name: Uninstall non-validated docker-ce
   apt:
-    name:
-      - docker-ce
-      - docker-ce-cli
+    name: 'docker-ce'
     state: absent
     update_cache: yes
-  when: docker_version not in ce_version or docker_version not in cli_version
+  when: docker_version not in ce_version
 
-- name: Get last validated docker-ce and cli {{ docker_version }}
+- name: Get last validated docker-ce {{ docker_version }}
   apt:
-    name:
-      - "docker-ce={{ docker_version }}"
-      - "docker-ce-cli={{ docker_version }}"
+    name: "docker-ce={{ docker_version }}"
     state: present
     update_cache: yes
-  when: docker_version not in ce_version or docker_version not in cli_version
+  when: docker_version not in ce_version
+
+- name: Get pip3
+  apt:
+    name: 'python3-pip'
+    state: latest
+    update_cache: yes
+
+- name: Install docker python package
+  pip:
+    name: docker
 
 - name: Register variable of process containers
   community.docker.docker_host_info:

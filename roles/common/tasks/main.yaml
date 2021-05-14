@@ -2,29 +2,26 @@
 - name: Configure kernel
   tags: kernel
   become: yes
-  become_method: su
-  become_user: root
+  become_method: sudo
   import_tasks: kernel.yaml
 
-- name: Add {{ user }} user
+- name: Add "{{ user }}" user
   tags: user
   become: yes
-  become_method: su
-  become_user: root
+  become_method: sudo
   import_tasks: user.yaml
 
 - name: Install Docker
   tags: docker
   become: yes
-  become_method: su
-  become_user: root
+  become_method: sudo
   import_tasks: docker.yaml
 
 - name: Create container networks
   tags: networks
   become: yes
   become_method: su
-  become_user: "{{ user }}"
+  become_user: '{{ user }}'
   import_tasks: networks.yaml
 
 - name: Create container volumes

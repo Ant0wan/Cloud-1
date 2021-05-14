@@ -1,5 +1,5 @@
 # Commons
-ansible_user: 'root'
+ansible_user: 'ubuntu'
 docker_version: '5:19.03.15~3-0~ubuntu-focal'
 user: 'website'
 group: 'docker'
