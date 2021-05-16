@@ -1,51 +1,12 @@
 ---
-- name: Create db volume directory
-  tags: db
-  file:
-    path: '{{ db_volume }}'
-    state: directory
-    recurse: yes
-
-- name: Create dbdata volume
+- name: Create db volume
   tags: db
   community.docker.docker_volume:
-    name: dbdata
+    name: db
     recreate: options-changed
-    driver_options:
-      type: none
-      o: bind
-      device: '{{ db_volume }}'
-
-- name: Create wordpress volume directory
-  tags: wordpress
-  file:
-    path: '{{ wp_dir }}'
-    state: directory
-    recurse: yes
 
 - name: Create wordpress volume
   tags: wordpress
   community.docker.docker_volume:
-    name: wordpress
+    name: website
     recreate: options-changed
-    driver_options:
-      type: none
-      o: bind
-      device: '{{ wp_dir }}'
-
-- name: Create certbot-etc volume directory
-  tags: certbot
-  file:
-    path: '{{ certbot_dir }}'
-    state: directory
-    recurse: yes
-
-- name: Create certbot-etc volume
-  tags: certbot
-  community.docker.docker_volume:
-    name: certbot-etc
-    recreate: options-changed
-    driver_options:
-      type: none
-      o: bind
-      device: '{{ certbot_dir }}'

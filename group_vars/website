@@ -4,13 +4,13 @@ docker_version: '5:19.03.15~3-0~ubuntu-focal'
 user: 'website'
 group: 'docker'
 home: '/srv/website/'
-website_network: 'website-network'
+website_network: 'site'
 volumes_dir: '{{ home }}volumes/'
 networks_dir: '{{ home }}networks/'
 
 # nginx
-nginx_dir: '{{ home }}nginx/'
-nginx_conf_dir: '{{ nginx_dir }}conf/'
+nginx_dir: '/etc/nginx/'
+nginx_conf_dir: '{{ nginx_dir }}conf.d/'
 nginx_version: '1.15.12-alpine'
 ports: [80]
 

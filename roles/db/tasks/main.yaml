@@ -1,15 +1,19 @@
 ---
-- name: Create DB volume
-  community.docker.
+
+#docker run -d --network site -v db:/var/lib/mysql --name mariadb \
+#	-e MYSQL_ROOT_PASSWORD=plussimple \
+#	-e MYSQL_USER=wordpress \
+#	-e MYSQL_PASSWORD=password \
+#	-e MYSQL_DATABASE=wordpress \
+#	mariadb:10.4
 
 - name: Create and start db services
   community.docker.docker_container:
     container_default_behavior: no_defaults
-    name: db
-    image: mysql:{{ mysql_version }}
+    name: mariadb
+    image: mariadb:10.4
     volumes:
-      - dbdata:/var/lib/mysql
-    command: '--default-authentication-plugin=mysql_native_password'
+      - db:/var/lib/mysql
     state: started
     recreate: no
     restart: no

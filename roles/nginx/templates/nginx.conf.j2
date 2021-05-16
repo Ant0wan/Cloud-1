@@ -1,6 +1,6 @@
 server {
 {% for port in ports %}
-        listen {{ port }}};
+        listen {{ port }};
         listen [::]:{{ port }};
 {% endfor %}
 
