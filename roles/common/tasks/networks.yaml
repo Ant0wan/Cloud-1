@@ -1,5 +1,0 @@
----
-- name: Create a network
-  community.docker.docker_network:
-    name: '{{ website_network }}'
-    driver: 'bridge'

@@ -4,11 +4,11 @@
     name: docker
     state: present
 
-- name: Add the user '{{ user }}' with a primary group of '{{ group }}'
-  tags: adduser
-  ansible.builtin.user:
-    name: '{{ user }}'
-    comment: Website user
-    group: '{{ group }}'
-    shell: /bin/bash
-    home: '{{ home }}'
+      #- name: Add the user '{{ user }}' with a primary group of '{{ group }}'
+      #  tags: adduser
+      #  ansible.builtin.user:
+      #    name: '{{ user }}'
+      #    comment: Website user
+      #    group: '{{ group }}'
+      #    shell: /bin/bash
+      #    home: '{{ home }}'

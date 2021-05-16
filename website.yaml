@@ -8,6 +8,37 @@
   roles:
     - role: common
 
+- name: Swarm
+  tags: swarm
+  gather_facts: no
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: swarm
+
+
+      #- name: Network
+      #  tags: network
+      #  gather_facts: no
+      #  hosts: all
+      #  become: yes
+      #  become_method: sudo
+      #    #become_user: "{{ user }}"
+      #  tasks:
+      #    - name: Create a network
+      #      community.docker.docker_network:
+      #        name: '{{ website_network }}'
+      #
+          #- name: Volumes
+          #  tags: volumes
+          #  become: yes
+          #  become_method: su
+          #  become_user: "{{ user }}"
+          #  roles:
+          #    - role: volumes
+
+
       #- name: Database
       #  tags: db
       #  gather_facts: no

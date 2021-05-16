@@ -16,16 +16,3 @@
   become: yes
   become_method: sudo
   import_tasks: docker.yaml
-
-- name: Create container networks
-  tags: networks
-  become: yes
-  become_method: su
-  become_user: '{{ user }}'
-  import_tasks: networks.yaml
-
-- name: Create container volumes
-  tags: volumes
-  become: yes
-  become_method: sudo
-  import_tasks: volumes.yaml

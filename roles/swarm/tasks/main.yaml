@@ -1,0 +1,13 @@
+---
+- name: Init a new swarm
+  community.docker.docker_swarm:
+    state: present
+  when: inventory_hostname == groups['website'] | first
+  register: swinit
+
+- name: Add nodes
+  community.docker.docker_swarm:
+    state: join
+    join_token: "{{ hostvars[groups['website'][0]]['swinit'].swarm_facts.JoinTokens.Worker }}"
+    remote_addrs: [ "{{ hostvars[groups['website'][0]]['ansible_host'] }}:2377" ]
+  when: inventory_hostname != groups['website'][0]
