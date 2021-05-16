@@ -28,7 +28,7 @@
     name: nginx
     image: nginx:1.19.10-alpine
     volumes:
-      - db:/var/lib/mysql
+      - website:/var/www/html
       - /home/ubuntu:/etc/nginx/conf.d
     state: started
     recreate: no

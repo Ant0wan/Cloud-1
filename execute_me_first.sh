@@ -13,3 +13,4 @@ sudo ${pk} install ansible
 ansible-galaxy collection install -r requirements.yaml
 echo "run \`export ANSIBLE_HOST_KEY_CHECKING=False\`"
 echo "then \`ansible-playbook -i hosts wordpress.yaml\`"
+echo "export MYSQL_ROOT_PASSWORD=plussimple; export MYSQL_USER=wordpress; export MYSQL_PASSWORD=password; export MYSQL_DATABASE=wordpress"
