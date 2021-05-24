@@ -9,7 +9,7 @@ db_name: 'mysql'
 db_image: 'mysql:5.7'
 db_volume: 'db'
 db_env:
-  - MYSQL_ROOT_PASSWORD: "{{ lookup('env','MYSQL_ROOT_PASSWORD') }}"
-  - MYSQL_USER: "{{ lookup('env','MYSQL_USER') }}"
-  - MYSQL_PASSWORD: "{{ lookup('env','MYSQL_PASSWORD') }}"
-  - MYSQL_DATABASE: 'wordpress'
+  MYSQL_ROOT_PASSWORD: "{{ lookup('env','MYSQL_ROOT_PASSWORD') }}"
+  MYSQL_USER: "{{ lookup('env','MYSQL_USER') }}"
+  MYSQL_PASSWORD: "{{ lookup('env','MYSQL_PASSWORD') }}"
+  MYSQL_DATABASE: 'wordpress'

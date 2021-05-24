@@ -26,15 +26,13 @@
         recreate: options-changed
       loop: "{{ volumes }}"
 
-      #- name: Database
-      #  tags: db
-      #  gather_facts: no
-      #  hosts: "{{ groups['website'][0] }}"
-      #  become: yes
-      #  become_method: sudo
-      #  roles:
-      #    - role: db
-      #
+- name: Database
+  tags: db
+  gather_facts: no
+  hosts: "{{ groups['website'][0] }}"
+  roles:
+    - role: db
+
       #- name: WordPress
       #  tags: wordpress
       #  gather_facts: no

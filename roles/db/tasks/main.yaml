@@ -13,7 +13,7 @@
     name: '{{ db_name }}'
     image: '{{ db_image }}'
     volumes:
-      - '{{ db_volume }}':/var/lib/mysql
+      - '{{ db_volume }}:/var/lib/mysql'
     state: started
     recreate: no
     restart: no
