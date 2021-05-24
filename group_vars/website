@@ -24,3 +24,13 @@ wp_env:
   WORDPRESS_DB_USER: "{{ lookup('env','MYSQL_USER') }}"
   WORDPRESS_DB_PASSWORD: "{{ lookup('env','MYSQL_PASSWORD') }}"
   WORDPRESS_DB_NAME: "{{ lookup('env','MYSQL_DATABASE') }}"
+
+# Phpmyadmin
+pma_name: 'phpmyadmin'
+pma_image: 'phpmyadmin/phpmyadmin'
+# phpmyadmin:5-fpm-alpine
+pma_ports: ['8183:80']
+pma_env:
+  PMA_HOST: '{{ db_name }}'
+  PMA_PORT: '3306'
+  PMA_ARBITRARY: '1'
