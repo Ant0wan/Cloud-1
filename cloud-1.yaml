@@ -1,0 +1,55 @@
+---
+- name: Commons
+  tags: commons
+  gather_facts: no
+  hosts: all
+  roles:
+    - role: common
+
+- name: Network
+  tags: network
+  gather_facts: no
+  hosts: "{{ groups['website'][0] }}"
+  tasks:
+    - name: Create a network
+      community.docker.docker_network:
+        name: '{{ website_network }}'
+
+- name: Volumes
+  tags: volumes
+  gather_facts: no
+  hosts: "{{ groups['website'][0] }}"
+  tasks:
+    - name: Create volumes
+      community.docker.docker_volume:
+        name: "{{ item }}"
+        recreate: options-changed
+      loop: "{{ volumes }}"
+
+      #- name: Database
+      #  tags: db
+      #  gather_facts: no
+      #  hosts: "{{ groups['website'][0] }}"
+      #  become: yes
+      #  become_method: sudo
+      #  roles:
+      #    - role: db
+      #
+      #- name: WordPress
+      #  tags: wordpress
+      #  gather_facts: no
+      #  hosts: "{{ groups['website'][0] }}"
+      #  become: yes
+      #  become_method: sudo
+      #  roles:
+      #    - role: wordpress
+      #
+      #- name: PhpMyAdmin
+      #  tags: phpmyadmin
+      #  gather_facts: no
+      #  hosts: "{{ groups['website'][0] }}"
+      #  become: yes
+      #  become_method: sudo
+      #  roles:
+      #    - role: phpmyadmin
+      #

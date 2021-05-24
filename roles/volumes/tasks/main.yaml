@@ -8,5 +8,5 @@
 - name: Create wordpress volume
   tags: wordpress
   community.docker.docker_volume:
-    name: website
+    name: wordpress
     recreate: options-changed

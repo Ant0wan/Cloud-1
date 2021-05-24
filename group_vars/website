@@ -1,33 +1,15 @@
 # Commons
-ansible_user: 'ubuntu'
+ansible_user: 'root'
 docker_version: '5:19.03.15~3-0~ubuntu-focal'
-user: 'website'
-group: 'docker'
-home: '/srv/website/'
-website_network: 'site'
-#volumes_dir: '{{ home }}volumes/'
-#networks_dir: '{{ home }}networks/'
-
-# nginx
-nginx_dir: '/etc/nginx/'
-nginx_conf_dir: '{{ nginx_dir }}conf.d/'
-nginx_version: '1.15.12-alpine'
-ports: [80]
+website_network: 'cloud-1'
+volumes: ['db', 'wordpress']
 
 # Database
 #db_dir: '{{ home }}db/'
 #db_volume: '{{ db_dir }}data/'
 #mysql_version: '8.0'
-mysql_root_password: "{{ lookup('env','MYSQL_ROOT_PASSWORD') }}"
-mysql_user: "{{ lookup('env','MYSQL_USER') }}"
-mysql_password: "{{ lookup('env','MYSQL_PASSWORD') }}"
+#mysql_root_password: "{{ lookup('env','MYSQL_ROOT_PASSWORD') }}"
+#mysql_user: "{{ lookup('env','MYSQL_USER') }}"
+#mysql_password: "{{ lookup('env','MYSQL_PASSWORD') }}"
 #mysql_db: "{{ lookup('env','MYSQL_DATABASE') }}"
-mysql_db: 'wordpress'
-
-
-# Wordpress
-#wp_dir: '{{ home }}wordpress/'
-#wp_version: '5.1.1-fpm-alpine'
-
-# Certbot-etc
-#certbot_dir: '{{ home }}certbot/'
+#mysql_db: 'wordpress'

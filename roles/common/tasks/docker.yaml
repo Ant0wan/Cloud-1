@@ -6,7 +6,7 @@
 
 - name: Add docker repository
   ansible.builtin.apt_repository:
-    repo: "deb [arch=arm64] https://download.docker.com/linux/ubuntu focal stable"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
     state: present
 
 - name: Update package list
