@@ -1,2 +1,4 @@
-[website]
-cloud-1-4fc9af3f-a49d-4db2-8a2b-4e48906b8b45 ansible_host='212.47.249.28'
+website:
+  hosts:
+    cloud-1-4fc9af3f-a49d-4db2-8a2b-4e48906b8b45:
+      ansible_host: 212.47.249.28
