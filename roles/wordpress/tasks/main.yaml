@@ -9,11 +9,14 @@
 #	-e MYSQL_DATABASE=wordpress \
 #	-d wordpress:5.7.1-fpm-alpine
 
+
+  # Wordpress
+
 - name: Create and start Wordpress services
   community.docker.docker_container:
     container_default_behavior: no_defaults
     name: wordpress
-    image: wordpress:5.7.1-fpm-alpine
+    image: wordpress:latest
     volumes:
       - website:/var/www/html
     state: started
@@ -23,11 +26,13 @@
     networks:
       - name: "{{ website_network }}"
     network_mode: "{{ website_network }}"
+    ports:
+      - '8000:80'
     env:
-      WORDPRESS_DB_HOST: 'mariadb:3306'
+      WORDPRESS_DB_HOST: 'db:3306'
       WORDPRESS_DB_USER: '{{ mysql_user }}'
       WORDPRESS_DB_PASSWORD: '{{ mysql_password }}'
-      MYSQL_DATABASE: '{{ mysql_db }}'
+        #MYSQL_DATABASE: '{{ mysql_db }}'
         #      WORDPRESS_DB_NAME: 'wordpress'
         #      MYSQL_ROOT_PASSWORD: '{{ mysql_root_password }}'
         #      MYSQL_USER: '{{ mysql_user }}'

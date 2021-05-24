@@ -1,17 +1,18 @@
 ---
 
-#docker run -d --network site -v db:/var/lib/mysql --name mariadb \
+#docker run -d --network site -v db:/var/lib/mysql --name mysql \
 #	-e MYSQL_ROOT_PASSWORD=plussimple \
 #	-e MYSQL_USER=wordpress \
 #	-e MYSQL_PASSWORD=password \
 #	-e MYSQL_DATABASE=wordpress \
-#	mariadb:10.4
+#	mysql:5.7
 
 - name: Create and start db services
   community.docker.docker_container:
     container_default_behavior: no_defaults
-    name: mariadb
-    image: mariadb:10.4
+    name: mysql
+    image: hypriot/rpi-mysql:5.5
+      #image: mysql:5.7
     volumes:
       - db:/var/lib/mysql
     state: started

@@ -55,12 +55,12 @@
   roles:
     - role: wordpress
 
-- name: Nginx
-  tags: nginx
+- name: PhpMyAdmin
+  tags: phpmyadmin
   gather_facts: no
   hosts: "{{ groups['website'][0] }}"
   become: yes
   become_method: sudo
   roles:
-    - role: nginx
+    - role: phpmyadmin
 

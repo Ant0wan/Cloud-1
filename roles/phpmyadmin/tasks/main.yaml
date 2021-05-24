@@ -1,0 +1,20 @@
+---
+  # phpmyadmin
+- name: Create and start phpmyadmin services
+  community.docker.docker_container:
+    container_default_behavior: no_defaults
+    name: phpmyadmin
+    image: phpmyadmin:5-fpm-alpine
+    state: started
+    recreate: no
+    restart: no
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ website_network }}"
+    network_mode: "{{ website_network }}"
+    ports:
+      - "8080:80"
+    env:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: '{{ mysql_root_password }}'
+
