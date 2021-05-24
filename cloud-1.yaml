@@ -6,13 +6,6 @@
   roles:
     - role: common
 
-- name: Swarm
-  tags: swarm
-  gather_facts: no
-  hosts: all
-  roles:
-    - role: swarm
-
 - name: Network
   tags: network
   gather_facts: no
