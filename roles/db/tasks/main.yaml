@@ -10,11 +10,10 @@
 - name: Create and start db services
   community.docker.docker_container:
     container_default_behavior: no_defaults
-    name: mysql
-    image: hypriot/rpi-mysql:5.5
-      #image: mysql:5.7
+    name: '{{ db_name }}'
+    image: '{{ db_image }}'
     volumes:
-      - db:/var/lib/mysql
+      - '{{ db_volume }}':/var/lib/mysql
     state: started
     recreate: no
     restart: no
@@ -22,8 +21,9 @@
     networks:
       - name: "{{ website_network }}"
     network_mode: "{{ website_network }}"
-    env:
-      MYSQL_ROOT_PASSWORD: '{{ mysql_root_password }}'
-      MYSQL_USER: '{{ mysql_user }}'
-      MYSQL_PASSWORD: '{{ mysql_password }}'
-      MYSQL_DATABASE: '{{ mysql_db }}'
+    env: '{{ db_env }}'
+      #    env:
+      #      MYSQL_ROOT_PASSWORD: '{{ mysql_root_password }}'
+      #      MYSQL_USER: '{{ mysql_user }}'
+      #      MYSQL_PASSWORD: '{{ mysql_password }}'
+      #      MYSQL_DATABASE: '{{ mysql_db }}'

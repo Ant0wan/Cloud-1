@@ -7,18 +7,9 @@ volumes: ['db', 'wordpress']
 # Database
 db_name: 'mysql'
 db_image: 'mysql:5.7'
+db_volume: 'db'
 db_env:
-  - MYSQL_ROOT_PASSWORD: '{{ mysql_root_password }}'
-  - MYSQL_USER: '{{ mysql_user }}'
-  - MYSQL_PASSWORD: '{{ mysql_password }}'
-  - MYSQL_DATABASE: '{{ mysql_db }}'
-
-
-#db_dir: '{{ home }}db/'
-#db_volume: '{{ db_dir }}data/'
-#mysql_version: '8.0'
-#mysql_root_password: "{{ lookup('env','MYSQL_ROOT_PASSWORD') }}"
-#mysql_user: "{{ lookup('env','MYSQL_USER') }}"
-#mysql_password: "{{ lookup('env','MYSQL_PASSWORD') }}"
-#mysql_db: "{{ lookup('env','MYSQL_DATABASE') }}"
-#mysql_db: 'wordpress'
+  - MYSQL_ROOT_PASSWORD: "{{ lookup('env','MYSQL_ROOT_PASSWORD') }}"
+  - MYSQL_USER: "{{ lookup('env','MYSQL_USER') }}"
+  - MYSQL_PASSWORD: "{{ lookup('env','MYSQL_PASSWORD') }}"
+  - MYSQL_DATABASE: 'wordpress'
