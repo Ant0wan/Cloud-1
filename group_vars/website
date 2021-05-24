@@ -30,7 +30,8 @@ wp_env:
 pma_name: 'phpmyadmin'
 pma_image: 'phpmyadmin/phpmyadmin'
 # phpmyadmin:5-fpm-alpine
-pma_ports: ['8183:80']
+pma_pub_port: '8001'
+pma_target_port: '80'
 pma_env:
   PMA_HOST: '{{ db_name }}'
   PMA_PORT: '3306'

@@ -11,9 +11,9 @@
   community.docker.docker_swarm_service:
     name: '{{ db_name }}'
     image: '{{ db_image }}'
-    replicas: 2
+    replicas: 1
     placement:
-      replicas_max_per_node: 2
+      replicas_max_per_node: 1
     labels:
       abarthel.dev.app: "cloud-1"
       abarthel.dev.description: "Wordpress website deployment - a 42 project"
