@@ -12,4 +12,15 @@ db_env:
   MYSQL_ROOT_PASSWORD: "{{ lookup('env','MYSQL_ROOT_PASSWORD') }}"
   MYSQL_USER: "{{ lookup('env','MYSQL_USER') }}"
   MYSQL_PASSWORD: "{{ lookup('env','MYSQL_PASSWORD') }}"
-  MYSQL_DATABASE: 'wordpress'
+  MYSQL_DATABASE: "{{ lookup('env','MYSQL_DATABASE') }}"
+
+# Wordpress
+wp_name: 'wordpress'
+wp_image: 'wordpress:latest'
+wp_volume: 'wordpress'
+wp_ports: ['8000:80']
+wp_env:
+  WORDPRESS_DB_HOST: '{{ db_name }}:3306'
+  WORDPRESS_DB_USER: "{{ lookup('env','MYSQL_USER') }}"
+  WORDPRESS_DB_PASSWORD: "{{ lookup('env','MYSQL_PASSWORD') }}"
+  WORDPRESS_DB_NAME: "{{ lookup('env','MYSQL_DATABASE') }}"

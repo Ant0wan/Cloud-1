@@ -22,8 +22,3 @@
       - name: "{{ website_network }}"
     network_mode: "{{ website_network }}"
     env: '{{ db_env }}'
-      #    env:
-      #      MYSQL_ROOT_PASSWORD: '{{ mysql_root_password }}'
-      #      MYSQL_USER: '{{ mysql_user }}'
-      #      MYSQL_PASSWORD: '{{ mysql_password }}'
-      #      MYSQL_DATABASE: '{{ mysql_db }}'
