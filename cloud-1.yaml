@@ -33,19 +33,16 @@
   roles:
     - role: db
 
-- name: WordPress
+- name: Wordpress
   tags: wordpress
   gather_facts: no
   hosts: "{{ groups['website'][0] }}"
   roles:
     - role: wordpress
 
-      #- name: PhpMyAdmin
-      #  tags: phpmyadmin
-      #  gather_facts: no
-      #  hosts: "{{ groups['website'][0] }}"
-      #  become: yes
-      #  become_method: sudo
-      #  roles:
-      #    - role: phpmyadmin
-      #
+- name: Phpmyadmin
+  tags: phpmyadmin
+  gather_facts: no
+  hosts: "{{ groups['website'][0] }}"
+  roles:
+    - role: phpmyadmin
