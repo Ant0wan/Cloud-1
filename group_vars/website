@@ -18,8 +18,8 @@ db_env:
 wp_name: 'wordpress'
 wp_image: 'wordpress:latest'
 wp_volume: 'wordpress'
-wp_pub_port: '8000'
-cp_target_port: '80'
+wp_pub_port: '80'
+wp_target_port: '80'
 wp_env:
   WORDPRESS_DB_HOST: '{{ db_name }}:3306'
   WORDPRESS_DB_USER: "{{ lookup('env','MYSQL_USER') }}"
