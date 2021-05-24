@@ -41,12 +41,12 @@
   roles:
     - role: db
 
-      #- name: Wordpress
-      #  tags: wordpress
-      #  gather_facts: no
-      #  hosts: "{{ groups['website'][0] }}"
-      #  roles:
-      #    - role: wordpress
+- name: Wordpress
+  tags: wordpress
+  gather_facts: no
+  hosts: "{{ groups['website'][0] }}"
+  roles:
+    - role: wordpress
       #
       #- name: Phpmyadmin
       #  tags: phpmyadmin
