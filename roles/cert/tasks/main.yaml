@@ -1,22 +1,34 @@
 ---
-- name: Create cert directory
-  file:
-    path: '{{ cert_dir }}'
-    state: directory
-    recurse: yes
-    mode: '0755'
-    owner: '{{ user }}'
-    group: '{{ group }}'
-
-- name: Generate Docker-compose manifest
-  template:
-    src: "docker-compose.yaml.j2"
-    dest: "{{ cert_dir }}/docker-compose.yaml"
-    owner: '{{ user }}'
-    group: '{{ group }}'
-    mode: '0644'
-
-- name: Create certs
-  command: "docker-compose up"
-  args:
-    chdir: '{{ cert_dir }}'
+# Certbot
+- name: Obtaining SSL certificates and credentials
+  community.docker.docker_swarm_service:
+    name: certbot
+    image: certbot/certbot
+    command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email --staging -d {{ domain_name }} -d www.{{ domain_name }}'
+    replicas: 1
+    placement:
+      replicas_max_per_node: 1
+    labels:
+      abarthel.dev.app: "cloud-1"
+      abarthel.dev.description: "Wordpress website deployment - a 42 project"
+    restart_config:
+      condition: 'on-failure'
+      delay: '5s'
+      max_attempts: 3
+    networks:
+      - name: "{{ website_network }}"
+    update_config:
+      failure_action: 'rollback'
+    rollback_config:
+      parallelism: 2
+      delay: '1m'
+      order: 'stop-first'
+    mounts:
+      - source: '{{ cert_volume }}'
+        type: 'volume'
+        no_copy: 'yes'
+        target: '/etc/letsencrypt'
+      - source: '{{ wp_volume }}'
+        type: 'volume'
+        no_copy: 'yes'
+        target: '/var/www/html'

@@ -1,4 +1,4 @@
 website:
   hosts:
-    cloud-1-4fc9af3f-a49d-4db2-8a2b-4e48906b8b45:
+    cloud-1-55513052-2406-4e21-b0e4-6b6707b9cbe6:
       ansible_host: 212.47.249.28
