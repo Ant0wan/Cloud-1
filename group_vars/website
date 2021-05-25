@@ -2,7 +2,7 @@
 ansible_user: 'root'
 docker_version: '5:19.03.15~3-0~ubuntu-focal'
 website_network: 'cloud-1'
-volumes: ['db', 'wordpress']
+volumes: ['db', 'wordpress', 'certbot-etc']
 
 # Database
 db_name: 'mysql'
