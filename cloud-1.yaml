@@ -54,3 +54,10 @@
   hosts: "{{ groups['website'][0] }}"
   roles:
     - role: phpmyadmin
+
+      #- name: Certbot
+      #  tags: certbot
+      #  gather_facts: no
+      #  hosts: "{{ groups['website'][0] }}"
+      #  roles:
+      #    - role: cert

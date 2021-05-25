@@ -13,8 +13,8 @@
       abarthel.dev.description: "Wordpress website deployment - a 42 project"
     restart_config:
       condition: 'on-failure'
-      delay: '5s'
-      max_attempts: 3
+        #      delay: '5s'
+        #      max_attempts: 30
     networks:
       - name: "{{ website_network }}"
     update_config:

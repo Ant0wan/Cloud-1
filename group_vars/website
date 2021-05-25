@@ -2,7 +2,8 @@
 ansible_user: 'root'
 docker_version: '5:19.03.15~3-0~ubuntu-focal'
 website_network: 'cloud-1'
-volumes: ['db', 'wordpress', 'certbot-etc']
+volumes: ['db', 'wordpress']
+#volumes: ['db', 'wordpress', 'certbot-etc']
 
 # Database
 db_name: 'mysql'
@@ -36,3 +37,6 @@ pma_env:
   PMA_HOST: '{{ db_name }}'
   PMA_PORT: '3306'
   PMA_ARBITRARY: '1'
+
+# SSL/TLS
+cert_volume: 'certbot-etc'
