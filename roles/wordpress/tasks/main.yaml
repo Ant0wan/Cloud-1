@@ -9,6 +9,10 @@
 #	-e MYSQL_DATABASE=wordpress \
 #	-d wordpress:5.7.1-fpm-alpine
 
+- name: Build SSL enabled Wordpress image
+  tags: build
+  import_tasks: build.yaml
+
 # Wordpress
 - name: Create and start Wordpress services
   community.docker.docker_swarm_service:
