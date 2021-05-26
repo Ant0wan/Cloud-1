@@ -3,7 +3,7 @@ FROM {{ wp_image }}
 WORKDIR /etc/letsencrypt/live/{{ domain_name }}/
 
 # Copy certificates
-COPY ./{{ domain_name }}/ /etc/letsencrypt/live/{{ domain_name }}/
+#COPY ./{{ domain_name }}/ /etc/letsencrypt/live/{{ domain_name }}/
 
 # Copy Apache2 conf
 COPY ./{{ domain_name }}.conf /etc/apache2/sites-available/

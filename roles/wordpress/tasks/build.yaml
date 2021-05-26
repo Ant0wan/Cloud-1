@@ -7,7 +7,7 @@
     group: root
     mode: '0755'
 
-- name: Template Wordpress dockerfile to /root/wp_dockerfile
+- name: Template Wordpress dockerfile
   ansible.builtin.template:
     src: 'Dockerfile.j2'
     dest: '{{ wp_build_dir }}/Dockerfile'
@@ -15,10 +15,18 @@
     group: root
     mode: '0644'
 
+- name: Template Apache2 conf
+  ansible.builtin.template:
+    src: 'template.com.conf.j2'
+    dest: '{{ wp_build_dir }}/{{ domain_name }}.conf'
+    owner: root
+    group: root
+    mode: '0644'
+
 - name: Build wp container image
-  docker_image:
+  community.docker.docker_image:
     name: '{{ wp_build }}'
     build:
-      path: '/root/wp_dockerfile'
-      source: build
+      path: '{{ wp_build_dir }}'
+    source: build
     state: present

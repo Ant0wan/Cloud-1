@@ -27,8 +27,8 @@
     env: '{{ wp_env }}'
     restart_config:
       condition: 'on-failure'
-      delay: '5s'
-      max_attempts: 3
+      delay: '20s'
+      max_attempts: 5
     networks:
       - name: "{{ website_network }}"
     publish:
