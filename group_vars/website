@@ -2,8 +2,7 @@
 ansible_user: 'root'
 docker_version: '5:19.03.15~3-0~ubuntu-focal'
 website_network: 'cloud-1'
-volumes: ['db', 'wordpress']
-#volumes: ['db', 'wordpress', 'certbot-etc']
+volumes: ['db', 'wordpress', 'certbot-etc', 'apache-conf']
 
 # Database
 db_name: 'mysql'
@@ -17,10 +16,10 @@ db_env:
 
 # Wordpress
 wp_name: 'wordpress'
-wp_image: 'wordpress:latest'
+wp_image: 'wordpress:5.7.2-apache'
 wp_volume: 'wordpress'
-wp_pub_port: '80'
-wp_target_port: '80'
+wp_pub_port: '443'
+wp_target_port: '443'
 wp_env:
   WORDPRESS_DB_HOST: '{{ db_name }}:3306'
   WORDPRESS_DB_USER: "{{ lookup('env','MYSQL_USER') }}"

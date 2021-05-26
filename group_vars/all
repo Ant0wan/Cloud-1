@@ -1,4 +1,4 @@
 ansible_connection: 'ssh'
 ansible_python_interpreter: '/usr/bin/python3'
 domain_name: 'abarthel.dev'
-email: 'support@abarthel.dev'
+email: 'contact@{{ domain_name }}'
