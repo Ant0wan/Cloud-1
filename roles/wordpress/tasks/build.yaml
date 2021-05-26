@@ -14,6 +14,7 @@
     owner: root
     group: root
     mode: '0644'
+    force: 'yes'
 
 - name: Template Apache2 conf
   ansible.builtin.template:
@@ -22,11 +23,14 @@
     owner: root
     group: root
     mode: '0644'
+    force: 'yes'
 
 - name: Build wp container image
   community.docker.docker_image:
     name: '{{ wp_build }}'
     build:
       path: '{{ wp_build_dir }}'
+      rm: 'yes'
+    force_source: 'yes'
     source: build
     state: present
