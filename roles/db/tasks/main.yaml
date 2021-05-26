@@ -33,5 +33,4 @@
     mounts:
       - source: '{{ db_volume }}'
         type: 'volume'
-        no_copy: 'yes'
         target: '/var/lib/mysql'
