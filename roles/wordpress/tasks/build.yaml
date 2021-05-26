@@ -1,24 +1,24 @@
 ---
 - name: Create build directory
   file:
-    path: /root/demo-dockerfile
+    path: /root/wp_dockerfile
     state: directory
     owner: root
     group: root
     mode: '0755'
 
-- name: copy Dockerfile
-  copy:
-    src: ./Dockerfile
-    dest: /root/demo-dockerfile/Dockerfile
+- name: Template Wordpress dockerfile to /root/wp_dockerfile
+  ansible.builtin.template:
+    src: 'Dockerfile.j2'
+    dest: '/root/wp_dockerfile/Dockerfile'
     owner: root
     group: root
     mode: '0644'
 
-- name: build container image
+- name: Build wp container image
   docker_image:
-    name: democontainer:v1.0
+    name: 'wp-cloud1:v0.1'
     build:
-      path: /root/demo-dockerfile
+      path: '/root/wp_dockerfile'
       source: build
     state: present
