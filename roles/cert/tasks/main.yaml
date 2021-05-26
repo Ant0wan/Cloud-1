@@ -26,9 +26,7 @@
     mounts:
       - source: '{{ cert_volume }}'
         type: 'volume'
-        no_copy: 'yes'
         target: '/etc/letsencrypt'
       - source: '{{ wp_volume }}'
         type: 'volume'
-        no_copy: 'yes'
         target: '/var/www/html'
