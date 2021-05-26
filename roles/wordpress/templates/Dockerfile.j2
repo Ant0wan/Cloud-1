@@ -1,6 +1,8 @@
 FROM {{ wp_image }}
 
-WORKDIR /etc/letsencrypt/live/{{ domain_name }}/
+WORKDIR /var/www/html/
+
+RUN mkdir -p /etc/letsencrypt/live/{{ domain_name }}/
 
 # Copy certificates
 #COPY ./{{ domain_name }}/ /etc/letsencrypt/live/{{ domain_name }}/
