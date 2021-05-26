@@ -1,4 +1,4 @@
-FROM wordpress:5.7-apache
+FROM {{ wp_image }}
 
 WORKDIR /etc/letsencrypt/live/{{ domain_name }}/
 
