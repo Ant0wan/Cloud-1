@@ -17,6 +17,8 @@ db_env:
 # Wordpress
 wp_name: 'wordpress'
 wp_image: 'wordpress:5.7.2-apache'
+wp_build: 'wp-cloud1:v0.1'
+wo_build_dir: '/root/wp-build/'
 wp_volume: 'wordpress'
 wp_pub_port: '443'
 wp_target_port: '443'

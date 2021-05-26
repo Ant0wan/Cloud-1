@@ -1,7 +1,7 @@
 ---
 - name: Create build directory
   file:
-    path: /root/wp_dockerfile
+    path: '{{ wp_build_dir }}'
     state: directory
     owner: root
     group: root
@@ -10,14 +10,14 @@
 - name: Template Wordpress dockerfile to /root/wp_dockerfile
   ansible.builtin.template:
     src: 'Dockerfile.j2'
-    dest: '/root/wp_dockerfile/Dockerfile'
+    dest: '{{ wp_build_dir }}/Dockerfile'
     owner: root
     group: root
     mode: '0644'
 
 - name: Build wp container image
   docker_image:
-    name: 'wp-cloud1:v0.1'
+    name: '{{ wp_build }}'
     build:
       path: '/root/wp_dockerfile'
       source: build

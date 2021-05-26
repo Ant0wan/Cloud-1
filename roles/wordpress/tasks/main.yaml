@@ -17,8 +17,7 @@
 - name: Create and start Wordpress services
   community.docker.docker_swarm_service:
     name: '{{ wp_name }}'
-    image: 'wp-cloud1:v0.1'
-      #image: '{{ wp_image }}'
+    image: '{{ wp_build }}'
     replicas: 1
     placement:
       replicas_max_per_node: 1
