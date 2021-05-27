@@ -1,5 +1,17 @@
 ---
 # Certbot
+- name: Deploy {{ wp_image }} on http for Certbot requests
+  community.docker.docker_container:
+    name: 'ssl_wordpress'
+    image: '{{ wp_image }}'
+    state: started
+    restart: no
+    ports:
+     - "80:80"
+    volumes:
+      - '{{ cert_volume }}:/etc/letsencrypt'
+      - '{{ wp_volume }}:/var/www/html'
+
 - name: Obtaining SSL certificates and credentials
   community.docker.docker_swarm_service:
     name: certbot
@@ -30,3 +42,8 @@
       - source: '{{ wp_volume }}'
         type: 'volume'
         target: '/var/www/html'
+
+- name: Remove temp {{ wp_image }}
+  community.docker.docker_container:
+    name: 'ssl_wordpress'
+    state: absent

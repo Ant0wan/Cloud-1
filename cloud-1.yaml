@@ -41,19 +41,19 @@
   roles:
     - role: db
 
+- name: Certbot
+  tags: certbot
+  gather_facts: no
+  hosts: "{{ groups['website'][0] }}"
+  roles:
+    - role: certbot
+
 - name: Wordpress
   tags: wordpress
   gather_facts: no
   hosts: "{{ groups['website'][0] }}"
   roles:
     - role: wordpress
-
-- name: Certbot
-  tags: certbot
-  gather_facts: no
-  hosts: "{{ groups['website'][0] }}"
-  roles:
-    - role: cert
 
       #- name: Phpmyadmin
       #  tags: phpmyadmin
