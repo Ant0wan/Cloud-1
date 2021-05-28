@@ -33,8 +33,7 @@ cert_volume: '{{ volumes[2] }}'
 
 # Phpmyadmin
 pma_name: 'phpmyadmin'
-#pma_image: 'phpmyadmin/phpmyadmin'
-pma_image: 'wordpress:5.7.2-apache'
+pma_image: 'phpmyadmin/phpmyadmin'
 # phpmyadmin:5-fpm-alpine
 pma_build: 'pma-cloud1:v0.1'
 pma_build_dir: '/root/pma-build/'

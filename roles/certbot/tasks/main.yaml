@@ -17,8 +17,8 @@
 - name: Obtaining SSL certificates and credentials
   community.docker.docker_container:
     container_default_behavior: 'no_defaults'
-    command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email --staging -d {{ domain_name }} -d www.{{ domain_name }}'
-    #command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email -d {{ domain_name }} -d www.{{ domain_name }}'
+      #command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email --staging -d {{ domain_name }} -d www.{{ domain_name }}'
+    command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email -d {{ domain_name }} -d www.{{ domain_name }}'
     name: 'certbot'
     image: 'certbot/certbot'
     state: 'started'
