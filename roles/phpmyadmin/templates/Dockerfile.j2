@@ -1,0 +1,13 @@
+FROM {{ pma_image }}
+
+WORKDIR /var/www/html/
+
+# Copy Apache2 conf
+COPY ./{{ domain_name }}.conf /etc/apache2/sites-available/
+
+# Expose port 443 for SSL to work with ingress
+EXPOSE 443
+
+# Enable ssl module and enable the abarthel.dev site
+RUN a2enmod ssl \
+ && a2ensite {{ domain_name }}

@@ -7,7 +7,7 @@ volumes: ['db', 'wordpress', 'certbot']
 # Database
 db_name: 'mysql'
 db_image: 'mysql:5.7'
-db_volume: 'db'
+db_volume: '{{ volumes[0] }}'
 db_env:
   MYSQL_ROOT_PASSWORD: "{{ lookup('env','MYSQL_ROOT_PASSWORD') }}"
   MYSQL_USER: "{{ lookup('env','MYSQL_USER') }}"
@@ -19,7 +19,7 @@ wp_name: 'wordpress'
 wp_image: 'wordpress:5.7.2-apache'
 wp_build: 'wp-cloud1:v0.1'
 wp_build_dir: '/root/wp-build/'
-wp_volume: 'wordpress'
+wp_volume: '{{ volumes[1] }}'
 wp_pub_port: '443'
 wp_target_port: '443'
 wp_env:
@@ -28,16 +28,20 @@ wp_env:
   WORDPRESS_DB_PASSWORD: "{{ lookup('env','MYSQL_PASSWORD') }}"
   WORDPRESS_DB_NAME: "{{ lookup('env','MYSQL_DATABASE') }}"
 
+# SSL/TLS
+cert_volume: '{{ volumes[2] }}'
+
 # Phpmyadmin
 pma_name: 'phpmyadmin'
-pma_image: 'phpmyadmin/phpmyadmin'
+#pma_image: 'phpmyadmin/phpmyadmin'
+pma_image: 'wordpress:5.7.2-apache'
 # phpmyadmin:5-fpm-alpine
-pma_pub_port: '8001'
-pma_target_port: '80'
+pma_build: 'pma-cloud1:v0.1'
+pma_build_dir: '/root/pma-build/'
+pma_pub_port: '8443'
+pma_target_port: '443'
 pma_env:
   PMA_HOST: '{{ db_name }}'
   PMA_PORT: '3306'
   PMA_ARBITRARY: '1'
 
-# SSL/TLS
-cert_volume: 'certbot'

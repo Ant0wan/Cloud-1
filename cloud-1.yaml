@@ -55,10 +55,9 @@
   roles:
     - role: wordpress
 
-      #- name: Phpmyadmin
-      #  tags: phpmyadmin
-      #  gather_facts: no
-      #  hosts: "{{ groups['website'][0] }}"
-      #  roles:
-      #    - role: phpmyadmin
-      #
+- name: Phpmyadmin
+  tags: phpmyadmin
+  gather_facts: no
+  hosts: "{{ groups['website'][0] }}"
+  roles:
+    - role: phpmyadmin

@@ -1,0 +1,36 @@
+---
+- name: Create build directory
+  file:
+    path: '{{ pma_build_dir }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Template Phpmyadmin dockerfile
+  ansible.builtin.template:
+    src: 'Dockerfile.j2'
+    dest: '{{ pma_build_dir }}/Dockerfile'
+    owner: root
+    group: root
+    mode: '0644'
+    force: 'yes'
+
+- name: Template Apache2 conf
+  ansible.builtin.template:
+    src: 'template.com.conf.j2'
+    dest: '{{ pma_build_dir }}/{{ domain_name }}.conf'
+    owner: root
+    group: root
+    mode: '0644'
+    force: 'yes'
+
+- name: Build pma container image
+  community.docker.docker_image:
+    name: '{{ pma_build }}'
+    build:
+      path: '{{ pma_build_dir }}'
+      rm: 'yes'
+    force_source: 'yes'
+    source: build
+    state: present

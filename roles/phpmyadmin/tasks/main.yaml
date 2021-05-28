@@ -1,9 +1,13 @@
 ---
+- name: Build SSL enabled Phpmyadmin image
+  tags: build
+  import_tasks: build.yaml
+
 # Phpmyadmin
 - name: Create and start phpmyadmin services
   community.docker.docker_swarm_service:
     name: '{{ pma_name }}'
-    image: '{{ pma_image }}'
+    image: '{{ pma_build }}'
     replicas: 1
     labels:
       abarthel.dev.app: "cloud-1"
@@ -25,3 +29,8 @@
       parallelism: 2
       delay: '1m'
       order: 'stop-first'
+    mounts:
+      - source: '{{ cert_volume }}'
+        type: 'volume'
+        target: '/etc/letsencrypt'
+
