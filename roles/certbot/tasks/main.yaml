@@ -35,5 +35,6 @@
 
 - name: Remove temp {{ wp_image }}
   community.docker.docker_container:
+    container_default_behavior: 'no_defaults'
     name: 'tmp_wordpress'
     state: 'absent'
