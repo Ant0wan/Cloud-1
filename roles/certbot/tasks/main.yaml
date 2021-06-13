@@ -1,40 +1,46 @@
 ---
-# Certbot
-- name: Deploy {{ wp_image }} on http for Certbot requests
-  community.docker.docker_container:
-    container_default_behavior: 'no_defaults'
-    name: 'tmp_wordpress'
-    image: '{{ wp_image }}'
-    state: 'started'
-    restart: 'no'
-    ports:
-     - "80:80"
-     - "443:443"
-    volumes:
-      - '{{ cert_volume }}:/etc/letsencrypt'
-      - '{{ wp_volume }}:/var/www/html'
 
-- name: Obtaining SSL certificates and credentials
-  community.docker.docker_container:
-    container_default_behavior: 'no_defaults'
-      #command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email --staging -d {{ domain_name }} -d www.{{ domain_name }}'
-    command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email -d {{ domain_name }} -d www.{{ domain_name }}'
-    name: 'certbot'
-    image: 'certbot/certbot'
-    state: 'started'
-    restart: 'no'
-    volumes:
-      - '{{ cert_volume }}:/etc/letsencrypt'
-      - '{{ wp_volume }}:/var/www/html'
+- name: Generates SSL certificates
+  block:
+    - name: Deploy {{ wp_image }} on http for Certbot requests
+      community.docker.docker_container:
+        container_default_behavior: 'no_defaults'
+        name: 'tmp_wordpress'
+        image: '{{ wp_image }}'
+        state: 'started'
+        restart: 'no'
+        ports:
+         - "80:80"
+         - "443:443"
+        volumes:
+          - '{{ cert_volume }}:/etc/letsencrypt'
+          - '{{ wp_volume }}:/var/www/html'
 
-- name: Wait for SSL certificate to be created
-  community.docker.docker_container_exec:
-    container: 'tmp_wordpress'
-    command: /bin/bash -c "while ! stat /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem &>/dev/null && ! stat /etc/letsencrypt/live/{{ domain_name }}/privkey.pem &>/dev/null ; do sleep 3; done"
-  register: certbotres
+    - name: Obtaining SSL certificates and credentials
+      community.docker.docker_container:
+        container_default_behavior: 'no_defaults'
+          #command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email --staging -d {{ domain_name }} -d www.{{ domain_name }}'
+        command: 'certonly --webroot --webroot-path=/var/www/html --email {{ email }} --agree-tos --no-eff-email -d {{ domain_name }} -d www.{{ domain_name }}'
+        name: 'certbot'
+        image: 'certbot/certbot'
+        state: 'started'
+        restart: 'no'
+        volumes:
+          - '{{ cert_volume }}:/etc/letsencrypt'
+          - '{{ wp_volume }}:/var/www/html'
 
-- name: Remove temp {{ wp_image }}
-  community.docker.docker_container:
-    container_default_behavior: 'no_defaults'
-    name: 'tmp_wordpress'
-    state: 'absent'
+    - name: Wait for SSL certificate to be created
+      community.docker.docker_container_exec:
+        container: 'tmp_wordpress'
+        command: /bin/bash -c "while ! stat /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem &>/dev/null && ! stat /etc/letsencrypt/live/{{ domain_name }}/privkey.pem &>/dev/null ; do sleep 3; done"
+      register: certbotres
+
+    - name: Remove temp {{ wp_image }}
+      community.docker.docker_container:
+        container_default_behavior: 'no_defaults'
+        name: 'tmp_wordpress'
+        state: 'absent'
+  rescue:
+    - name: Already created certificates
+      ansible.builtin.debug:
+        msg: "SSL certificate has already been generated."
