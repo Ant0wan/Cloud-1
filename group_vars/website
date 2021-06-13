@@ -43,4 +43,3 @@ pma_env:
   PMA_HOST: '{{ db_name }}'
   PMA_PORT: '3306'
   PMA_ARBITRARY: '1'
-
